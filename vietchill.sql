@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th12 01, 2024 lúc 07:22 AM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th10 19, 2025 lúc 02:51 PM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `vietchill`
+-- Cơ sở dữ liệu: `doancoso`
 --
 
 -- --------------------------------------------------------
@@ -63,11 +63,9 @@ CREATE TABLE `booking_details` (
 --
 
 INSERT INTO `booking_details` (`sr_no`, `booking_id`, `room_name`, `price`, `total_pay`, `room_no`, `user_name`, `phonenum`, `address`) VALUES
-(1, 1, 'Phòng Cơ Bản 3', 1200000, 2400000, NULL, 'Hung', '123', 'ad'),
-(2, 2, 'Phòng Cao Cấp', 2000000, 4000000, 'a2', 'amey', '123', 'ad'),
-(3, 3, 'Phòng Tổng Thống', 10000000, 10000000, NULL, 'amey', '123', 'ad'),
-(21, 21, 'Phòng Cơ Bản 3', 1200000, 7200000, NULL, 'Hùng', '12345', 'qweqweqweqwe'),
-(22, 22, 'Phòng Cao Cấp', 2000000, 4000000, NULL, 'Hùng', '12345', 'qweqweqweqwe');
+(38, 38, 'Homestay Đồi Thông', 3500000, 3500000, '12', 'Quang', '1233323123', 'ad'),
+(39, 39, 'Homestay Mây Bay', 1300000, 8320000, '11', 'Vóc', '12345', 'qweqweqweqwe'),
+(40, 40, 'Homestay Đồi Thông', 3500000, 4160000, '9', 'Vóc', '12345', 'qweqweqweqwe');
 
 -- --------------------------------------------------------
 
@@ -98,11 +96,48 @@ CREATE TABLE `booking_order` (
 --
 
 INSERT INTO `booking_order` (`booking_id`, `user_id`, `room_id`, `check_in`, `check_out`, `arrival`, `refund`, `booking_status`, `order_id`, `trans_id`, `trans_amt`, `trans_status`, `trans_resp_msg`, `rate_review`, `datentime`) VALUES
-(1, 2, 3, '2024-12-12', '2024-12-14', 0, NULL, 'pending', 'ORD_21055700', NULL, 0, 'pending', NULL, NULL, '2024-11-30 01:50:12'),
-(2, 2, 3, '2024-12-03', '2024-12-04', 1, NULL, 'booked', 'ORD_24215693', '20220720111212800110168128204225279', 600, 'TXN_SUCCESS', 'Txn Success', NULL, '2024-11-30 02:14:44'),
-(3, 2, 3, '2024-12-13', '2024-12-17', 0, 1, 'cancelled', 'ORD_26312547', '20220720111212800110168165603901976', 1800, 'TXN_SUCCESS', 'Txn Success', NULL, '2024-11-30 02:19:00'),
-(21, 7, 3, '2024-12-01', '2024-12-07', 0, 0, 'cancelled', 'ORD_74731476', NULL, NULL, 'TXN_SUCCESS', NULL, NULL, '2024-12-01 11:25:29'),
-(22, 7, 4, '2024-12-29', '2024-12-31', 0, NULL, 'booked', 'ORD_72382450', NULL, NULL, 'TXN_SUCCESS', NULL, NULL, '2024-12-01 11:32:34');
+(1, 2, 3, '2024-12-12', '2024-12-14', 1, NULL, 'booked', 'ORD_21055700', NULL, 0, 'pending', NULL, 0, '2025-06-11 01:50:12'),
+(21, 7, 3, '2024-12-01', '2024-12-07', 0, 0, 'cancelled', 'ORD_74731476', NULL, NULL, 'TXN_SUCCESS', NULL, NULL, '2025-06-14 11:25:29'),
+(22, 7, 4, '2024-12-29', '2024-12-31', 1, NULL, 'booked', 'ORD_72382450', NULL, NULL, 'TXN_SUCCESS', NULL, 0, '2025-06-14 11:32:34'),
+(23, 11, 3, '2025-06-20', '2025-06-21', 1, NULL, 'booked', 'ORD_111924376', NULL, NULL, 'pending', NULL, 0, '2025-06-19 14:49:33'),
+(24, 12, 6, '2025-06-26', '2025-06-28', 1, NULL, 'booked', 'ORD_126695204', NULL, NULL, 'pending', NULL, 0, '2025-06-19 15:19:53'),
+(25, 12, 3, '2025-06-23', '2025-06-25', 1, NULL, 'booked', 'ORD_128630355', NULL, NULL, 'pending', NULL, 0, '2025-06-19 15:23:07'),
+(26, 13, 3, '2025-06-19', '2025-06-20', 1, NULL, 'booked', 'ORD_134521689', NULL, NULL, 'pending', NULL, 0, '2025-06-19 22:30:35'),
+(27, 13, 6, '2025-06-21', '2025-06-22', 1, NULL, 'booked', 'ORD_132557287', NULL, NULL, 'pending', NULL, 0, '2025-06-21 12:48:42'),
+(30, 14, 9, '2025-07-15', '2025-07-16', 1, NULL, 'booked', 'ORD_146128013', NULL, NULL, 'pending', NULL, 0, '2025-07-14 16:36:48'),
+(31, 14, 10, '2025-07-22', '2025-07-24', 1, NULL, 'booked', 'ORD_147591936', NULL, NULL, 'pending', NULL, 0, '2025-07-21 21:03:26'),
+(33, 15, 9, '2025-07-24', '2025-07-27', 1, NULL, 'booked', 'ORD_153585894', NULL, NULL, 'pending', NULL, 0, '2025-07-23 09:51:13'),
+(34, 16, 5, '2025-07-24', '2025-07-26', 0, 0, 'cancelled', 'ORD_165049203', NULL, NULL, 'pending', NULL, NULL, '2025-07-23 10:41:49'),
+(35, 16, 9, '2025-07-24', '2025-07-26', 1, NULL, 'booked', 'ORD_167074946', NULL, NULL, 'pending', NULL, 1, '2025-07-23 10:44:30'),
+(36, 16, 3, '2025-07-24', '2025-07-25', 1, NULL, 'booked', 'ORD_163196570', NULL, NULL, 'pending', NULL, 0, '2025-07-23 10:47:30'),
+(38, 2, 5, '2025-11-19', '2025-11-20', 1, NULL, 'booked', 'ORD_28958063', NULL, NULL, 'pending', NULL, 0, '2025-11-19 20:27:04'),
+(39, 7, 9, '2025-11-19', '2025-11-25', 1, NULL, 'booked', 'ORD_76986400', NULL, NULL, 'pending', NULL, 1, '2025-11-19 20:28:29'),
+(40, 7, 5, '2025-11-20', '2025-11-21', 1, NULL, 'booked', 'ORD_71071420', NULL, NULL, 'pending', NULL, 0, '2025-11-19 20:44:18');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `booking_services`
+--
+
+CREATE TABLE `booking_services` (
+  `sr_no` int(11) NOT NULL,
+  `booking_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `booking_services`
+--
+
+INSERT INTO `booking_services` (`sr_no`, `booking_id`, `service_id`, `price`, `quantity`) VALUES
+(18, 40, 3, 100000, 1),
+(19, 40, 7, 300000, 1),
+(20, 40, 8, 80000, 1),
+(21, 40, 9, 60000, 1),
+(22, 40, 10, 120000, 1);
 
 -- --------------------------------------------------------
 
@@ -120,9 +155,9 @@ CREATE TABLE `carousel` (
 --
 
 INSERT INTO `carousel` (`sr_no`, `image`) VALUES
-(4, '1.png'),
-(5, '2.png'),
-(6, '3.png');
+(14, 'IMG_91370.jpg'),
+(15, 'IMG_76404.jpg'),
+(16, 'IMG_38884.jpg');
 
 -- --------------------------------------------------------
 
@@ -147,7 +182,7 @@ CREATE TABLE `contact_details` (
 --
 
 INSERT INTO `contact_details` (`sr_no`, `address`, `gmap`, `pn1`, `email`, `fb`, `insta`, `tw`, `iframe`) VALUES
-(1, 'Quận 12, Hồ Chí Minh, Vietnam', 'https://maps.app.goo.gl/5C8P7KsLbAbSYNc46', 914298300, '2311560406@nttu.edu.vn', 'https://www.facebook.com/DaiHocNguyenTatThanh', '', '', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501725.4184356321!2d106.3655589082179!3d10.755292868615134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112b!2sHo%20Chi%20Minh%20City%2C%20Vietnam!5e0!3m2!1sen!2s!4v1732960441082!5m2!1sen!2s');
+(1, 'Hà Nội', 'https://www.google.com/maps?q=%C4%90%C3%A0+N%E1%BA%B5ng', 84344161434, 'quangha1235@gmail.com', 'https://www.facebook.com/', '', '', 'https://www.google.com/maps?q=%C4%90%C3%A0+N%E1%BA%B5ng');
 
 -- --------------------------------------------------------
 
@@ -217,13 +252,15 @@ CREATE TABLE `rating_review` (
 --
 
 INSERT INTO `rating_review` (`sr_no`, `booking_id`, `room_id`, `user_id`, `rating`, `review`, `seen`, `datentime`) VALUES
-(4, 21, 5, 2, 5, 'Dịch vụ tuyệt vời, không gian đẳng cấp và được trang bị đầy đủ tiện nghi hiện đại. Rất phù hợp cho những dịp đặc biệt hoặc nghỉ dưỡng cao cấp.', 1, '2022-08-20 00:22:25'),
-(5, 22, 4, 5, 3, 'Chất lượng dịch vụ xuất sắc, phòng rộng rãi, đầy đủ tiện nghi. Không gian sang trọng và thoải mái, rất đáng giá cho kỳ nghỉ.', 1, '2022-08-20 00:22:30'),
-(6, 1, 3, 6, 4, 'Tương tự như “Phòng Cơ bản”, nhưng một số chi tiết như ánh sáng hoặc nội thất cần được cải thiện để mang lại trải nghiệm tốt hơn.', 1, '2022-08-20 00:22:34'),
-(8, 21, 5, 7, 5, 'Nhân viên phục vụ rất chuyên nghiệp, mang lại cảm giác thoải mái và đáng nhớ cho kỳ nghỉ.', 1, '2022-08-20 00:22:25'),
-(9, 22, 3, 8, 4, 'Dịch vụ ổn định, phòng sạch sẽ và gọn gàng. Tuy nhiên, tiện nghi chỉ ở mức cơ bản, phù hợp cho những ai cần chỗ ở ngắn hạn.', 1, '2022-08-20 00:22:34'),
-(10, 1, 6, 2, 5, 'Phòng đẳng cấp, dịch vụ chu đáo, không gian sang trọng. Tuy nhiên, giá thành hơi cao so với những gì nhận được.', 1, '2022-08-20 00:22:34'),
-(12, 1, 3, 7, 5, 'Rất tốt, đỉnh nóc kịch trần, bay phấp pha phấp phới.\r\nHãy gửi voucher discount về cho tôi vì đã để lại bình luận tốt!', 0, '2024-12-01 11:33:41');
+(4, 21, 5, 2, 5, 'Dịch vụ tuyệt vời, không gian đẳng cấp và được trang bị đầy đủ tiện nghi hiện đại. Rất phù hợp cho những dịp đặc biệt hoặc nghỉ dưỡng cao cấp.', 1, '2025-10-12 00:22:25'),
+(5, 22, 4, 5, 3, 'Chất lượng dịch vụ xuất sắc, phòng rộng rãi, đầy đủ tiện nghi. Không gian sang trọng và thoải mái, rất đáng giá cho kỳ nghỉ.', 1, '2025-10-12 00:22:30'),
+(6, 1, 3, 6, 4, 'Tương tự như “Phòng Cơ bản”, nhưng một số chi tiết như ánh sáng hoặc nội thất cần được cải thiện để mang lại trải nghiệm tốt hơn.', 1, '2025-10-12 01:00:00'),
+(8, 21, 5, 7, 5, 'Nhân viên phục vụ rất chuyên nghiệp, mang lại cảm giác thoải mái và đáng nhớ cho kỳ nghỉ.', 1, '2025-10-12 00:22:25'),
+(9, 22, 3, 8, 4, 'Dịch vụ ổn định, phòng sạch sẽ và gọn gàng. Tuy nhiên, tiện nghi chỉ ở mức cơ bản, phù hợp cho những ai cần chỗ ở ngắn hạn.', 1, '2025-10-12 00:22:34'),
+(10, 1, 6, 2, 5, 'Phòng đẳng cấp, dịch vụ chu đáo, không gian sang trọng. Tuy nhiên, giá thành hơi cao so với những gì nhận được.', 1, '2025-10-12 00:22:34'),
+(12, 1, 3, 7, 5, 'Rất tốt, đỉnh nóc kịch trần, bay phấp pha phấp phới.\r\nHãy gửi voucher discount về cho tôi vì đã để lại bình luận tốt!', 1, '2025-10-12 11:33:41'),
+(13, 35, 9, 16, 5, 'Good', 1, '2025-10-12 10:44:59'),
+(14, 39, 9, 7, 2, 'quá ok', 1, '2025-11-19 20:43:52');
 
 -- --------------------------------------------------------
 
@@ -251,10 +288,14 @@ CREATE TABLE `rooms` (
 INSERT INTO `rooms` (`id`, `name`, `area`, `price`, `quantity`, `adult`, `children`, `description`, `status`, `removed`) VALUES
 (1, 'Phòng Cơ Bản 1', 34, 800000, 56, 2, 1, 'Phòng đơn giản, phù hợp với những khách hàng cần chỗ nghỉ ngắn hạn. Được trang bị các tiện nghi cơ bản như giường thoải mái, bàn làm việc nhỏ, và Wi-Fi miễn phí.', 1, 1),
 (2, 'Phòng Cơ Bản 2', 40, 1000000, 30, 2, 1, 'Nâng cấp nhẹ so với Phòng Cơ Bản 1, mang đến không gian rộng rãi hơn và thêm các tiện ích như TV màn hình phẳng và minibar.', 1, 1),
-(3, 'Phòng Cơ Bản 3', 60, 1200000, 20, 4, 2, 'Phòng cơ bản cao cấp hơn với thiết kế hiện đại, ban công nhỏ hoặc cửa sổ lớn có view thành phố, tạo cảm giác thoáng đãng và thư giãn.', 1, 0),
-(4, 'Phòng Cao Cấp', 50, 2000000, 15, 2, 1, 'Không gian rộng rãi với thiết kế sang trọng, phù hợp cho các kỳ nghỉ dài ngày. Được trang bị nội thất cao cấp, phòng tắm riêng với bồn tắm, và các tiện ích như máy pha cà phê và két an toàn.', 1, 0),
-(5, 'Phòng Sang Trọng', 50, 3500000, 15, 2, 1, 'Thiết kế đẳng cấp với nội thất tinh tế và các tiện nghi hiện đại. Phòng có không gian sống riêng biệt, ban công hoặc cửa sổ lớn với view đẹp, mang lại trải nghiệm thư giãn hoàn hảo.', 1, 0),
-(6, 'Phòng Tổng Thống', 120, 10000000, 5, 6, 3, 'Hạng phòng cao cấp nhất, mang đến sự xa hoa với không gian rộng lớn, nội thất tinh xảo và dịch vụ đặc biệt. Bao gồm phòng khách riêng, phòng ngủ lớn, phòng tắm xa hoa và nhiều tiện nghi VIP như quản gia riêng.', 1, 0);
+(3, 'Homestay Lá', 30, 700000, 20, 2, 1, 'Phòng cao cấp hơn với thiết kế hiện đại, ban công nhỏ hoặc cửa sổ lớn có view thành phố, tạo cảm giác thoáng đãng và thư giãn.', 1, 0),
+(4, 'Homestay Gió', 50, 1000000, 15, 4, 2, 'Không gian rộng rãi với thiết kế sang trọng, phù hợp cho các kỳ nghỉ dài ngày. Được trang bị nội thất cao cấp, phòng tắm riêng với bồn tắm, và các tiện ích như máy pha cà phê và két an toàn.', 1, 0),
+(5, 'Homestay Đồi Thông', 120, 3500000, 15, 6, 3, 'Thiết kế đẳng cấp với nội thất tinh tế và các tiện nghi hiện đại. Phòng có không gian sống riêng biệt, ban công hoặc cửa sổ lớn với view đẹp, mang lại trải nghiệm thư giãn hoàn hảo.', 1, 0),
+(6, 'Hoemstay Suối Nhỏ', 40, 10000000, 5, 3, 1, 'Hạng phòng cao cấp nhất, mang đến sự xa hoa với không gian rộng lớn, nội thất tinh xảo và dịch vụ đặc biệt. Bao gồm phòng khách riêng, phòng ngủ lớn, phòng tắm xa hoa và nhiều tiện nghi VIP như quản gia riêng.', 1, 0),
+(7, 'Homestay Sương Sớm', 60, 1500000, 15, 5, 2, 'Ẩn mình giữa thiên nhiên tĩnh lặng, Homestay Sương Sớm mang đến cho bạn một không gian nghỉ dưỡng trong lành và an yên. Mỗi buổi sáng thức dậy, bạn sẽ được đón chào bởi làn sương mờ giăng, ánh nắng dịu nhẹ len lỏi qua khung cửa sổ và tiếng chim hót giữa núi rừng – tất cả tạo nên một trải nghiệm thật chậm, thật riêng.', 1, 0),
+(8, 'Homestay Mộc Trà', 45, 900000, 10, 3, 1, 'Ẩn mình sau hàng tre xanh và vườn cúc dại, Homestay Mộc Trà như một nốt trầm giữa bản nhạc của núi rừng. Không gian được chăm chút bởi chất liệu tự nhiên: gỗ thô, tre, và ánh sáng vàng ấm – tất cả tạo nên một nơi chốn thiền tĩnh và an yên, nơi mà chỉ cần bước vào là thấy nhẹ lòng.', 1, 0),
+(9, 'Homestay Mây Bay', 60, 1300000, 15, 4, 2, 'Nằm ở vị trí cao nhất của Homestay, Homestay Mây Bay là lựa chọn tuyệt vời cho những ai muốn &quot;thức dậy giữa tầng mây&quot;. Sáng sớm, mây lững lờ trôi ngang qua khung cửa kính; chiều về, nắng nhạt vàng phủ khắp không gian. Một nơi nhẹ tênh, trong trẻo, như chính cái tên của nó.', 1, 0),
+(10, 'Homestay Nắng Mai', 45, 1200000, 20, 3, 1, 'Homestay Nắng Mai là không gian lý tưởng cho những ai yêu buổi sáng dịu dàng và thích cảm giác tỉnh dậy trong ánh nắng ấm. Mỗi sớm mai, căn phòng như được bao phủ bởi một lớp nắng vàng nhẹ, len qua từng khe rèm, soi rọi vào từng ngóc ngách – đem lại cảm giác tươi mới, tích cực và tràn đầy sức sống.', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -273,20 +314,34 @@ CREATE TABLE `room_facilities` (
 --
 
 INSERT INTO `room_facilities` (`sr_no`, `room_id`, `facilities_id`) VALUES
-(46, 3, 14),
-(47, 3, 15),
-(48, 3, 18),
-(49, 3, 19),
-(50, 4, 14),
-(51, 4, 18),
-(52, 4, 19),
-(53, 5, 13),
-(54, 5, 14),
-(55, 5, 18),
-(56, 6, 13),
-(57, 6, 14),
-(58, 6, 18),
-(59, 6, 19);
+(66, 3, 13),
+(67, 3, 14),
+(68, 3, 19),
+(85, 5, 13),
+(86, 5, 14),
+(87, 5, 18),
+(88, 4, 13),
+(89, 4, 14),
+(90, 4, 17),
+(91, 4, 19),
+(96, 6, 13),
+(97, 6, 14),
+(98, 6, 18),
+(99, 6, 19),
+(100, 7, 13),
+(101, 7, 14),
+(102, 7, 15),
+(103, 7, 19),
+(104, 8, 13),
+(105, 8, 14),
+(106, 8, 19),
+(107, 9, 13),
+(108, 9, 14),
+(109, 9, 15),
+(110, 9, 19),
+(111, 10, 13),
+(112, 10, 14),
+(113, 10, 19);
 
 -- --------------------------------------------------------
 
@@ -305,18 +360,28 @@ CREATE TABLE `room_features` (
 --
 
 INSERT INTO `room_features` (`sr_no`, `room_id`, `features_id`) VALUES
-(31, 3, 13),
-(32, 3, 14),
-(33, 3, 17),
-(34, 4, 13),
-(35, 4, 14),
-(36, 4, 15),
-(37, 5, 13),
-(38, 5, 14),
-(39, 5, 15),
-(40, 6, 13),
-(41, 6, 14),
-(42, 6, 15);
+(49, 3, 13),
+(50, 3, 14),
+(51, 3, 17),
+(61, 5, 13),
+(62, 5, 14),
+(63, 5, 15),
+(64, 4, 13),
+(65, 4, 14),
+(66, 4, 15),
+(70, 6, 13),
+(71, 6, 14),
+(72, 6, 15),
+(73, 7, 13),
+(74, 7, 14),
+(75, 7, 15),
+(76, 8, 13),
+(77, 8, 14),
+(78, 8, 15),
+(79, 9, 13),
+(80, 9, 14),
+(81, 10, 13),
+(82, 10, 14);
 
 -- --------------------------------------------------------
 
@@ -336,16 +401,64 @@ CREATE TABLE `room_images` (
 --
 
 INSERT INTO `room_images` (`sr_no`, `room_id`, `image`, `thumb`) VALUES
-(15, 3, 'IMG_39782.png', 0),
-(16, 3, 'IMG_65019.png', 1),
 (17, 4, 'IMG_44867.png', 0),
-(18, 4, 'IMG_78809.png', 1),
+(18, 4, 'IMG_78809.png', 0),
 (19, 4, 'IMG_11892.png', 0),
 (21, 5, 'IMG_17474.png', 0),
-(22, 5, 'IMG_42663.png', 1),
+(22, 5, 'IMG_42663.png', 0),
 (23, 5, 'IMG_70583.png', 0),
 (24, 6, 'IMG_67761.png', 0),
-(25, 6, 'IMG_69824.png', 1);
+(25, 6, 'IMG_69824.png', 0),
+(27, 4, 'IMG_56943.jpg', 1),
+(28, 5, 'IMG_76095.jpg', 1),
+(33, 3, 'IMG_49720.jpg', 0),
+(34, 3, 'IMG_43812.jpg', 0),
+(41, 6, 'IMG_23684.jpg', 1),
+(42, 3, 'IMG_85865.jpg', 1),
+(43, 7, 'IMG_99975.jpg', 0),
+(44, 7, 'IMG_40566.jpg', 1),
+(45, 7, 'IMG_25765.jpg', 0),
+(46, 8, 'IMG_19448.jpg', 1),
+(47, 8, 'IMG_59793.jpg', 0),
+(48, 8, 'IMG_40559.jpg', 0),
+(50, 9, 'IMG_80060.jpg', 0),
+(51, 9, 'IMG_35726.jpg', 0),
+(52, 9, 'IMG_14326.jpg', 1),
+(53, 10, 'IMG_31478.jpg', 1),
+(54, 10, 'IMG_36445.jpg', 0),
+(55, 10, 'IMG_24087.jpg', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `services`
+--
+
+CREATE TABLE `services` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `price` int(11) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image` varchar(150) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `removed` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `services`
+--
+
+INSERT INTO `services` (`id`, `name`, `price`, `description`, `image`, `status`, `removed`) VALUES
+(1, 'Xe đạp địa hình', 100000, 'Loại xe được thiết kế để di chuyển trên nhiều loại địa hình khác nhau, từ đường bằng phẳng đến đường gồ ghề, đồi núi.', 'IMG_94414.jpg', 1, 0),
+(2, 'Lều cắm trại', 200000, 'Lều di động, được thiết kế để bảo vệ người sử dụng khỏi các yếu tố thời tiết như nắng, mưa, gió, và côn trùng.', 'IMG_65604.jpg', 1, 0),
+(3, 'Combo đồ nướng', 100000, 'Là thiết bị dùng để nấu chín thực phẩm bằng nhiệt, thường ở nhiệt độ cao, với nhiều chức năng và kiểu dáng đa dạng.', 'IMG_92951.jpg', 1, 0),
+(4, 'a', 22, '', 'IMG_30163.jpg', 1, 1),
+(5, 'xe đạp', 100000, '', 'IMG_88988.jpg', 1, 1),
+(6, 'Xe máy (Xe số)', 200000, 'Là loại xe máy có hộp số cơ khí, yêu cầu người lái phải tự thao tác sang số bằng chân đạp cần số', 'IMG_65464.png', 1, 0),
+(7, 'Xe máy (Xe tay ga)', 300000, 'Có đặc điểm nổi bật là phần để chân cho người lái, hệ thống truyền động vô cấp  giúp vận hành êm ái và dễ điều khiển', 'IMG_82697.jpg', 1, 0),
+(8, 'Dịch vụ dọn dẹp', 80000, 'Bao gồm dọn dẹp phòng ở, nhà vệ sinh, làm sạch các khu vực chung, thay ga giường, vỏ gối, và đảm bảo các tiện nghi trong phòng hoạt động tốt', 'IMG_87099.jpg', 1, 0),
+(9, 'Dịch vụ giặt ủi', 60000, 'Bao gồm việc giặt, làm khô và là quần áo, khăn, ga trải giường, v.v. của khách. Dịch vụ này giúp khách giữ quần áo sạch sẽ và gọn gàng trong suốt thời gian lưu trú', 'IMG_18954.jpg', 1, 0),
+(10, 'Dịch vụ massage', 120000, 'Dịch vụ này mang đến sự tiện lợi và trải nghiệm thư giãn độc đáo, hòa mình vào không gian sống và văn hóa địa phương.', 'IMG_62245.jpg', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -365,7 +478,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`sr_no`, `site_title`, `site_about`, `shutdown`) VALUES
-(1, 'VietChill', 'Trải nghiệm dịch vụ đặt phòng khách sạn trực tuyến nhanh chóng, tiện lợi với đa dạng lựa chọn tại các điểm đến du lịch nổi tiếng trên khắp Việt Nam. Hãy để hành trình của bạn bắt đầu chỉ với vài cú nhấp chuột!', 0);
+(1, 'VietChill', 'Trải nghiệm dịch vụ đặt phòng Homestay trực tuyến nhanh chóng, tiện lợi với đa dạng lựa chọn tại các điểm đến du lịch nổi tiếng trên khắp Việt Nam. Hãy để hành trình của bạn bắt đầu chỉ với vài cú nhấp chuột!', 0);
 
 -- --------------------------------------------------------
 
@@ -384,14 +497,10 @@ CREATE TABLE `team_details` (
 --
 
 INSERT INTO `team_details` (`sr_no`, `name`, `picture`) VALUES
-(16, 'Hùng', 'chill-guy1.png'),
-(17, 'Trung', 'chill-guy2.png'),
-(18, 'Huy', 'chill-guy3.png'),
-(19, 'Dũng', 'chill-guy4.png'),
-(20, 'Đăng', 'chill-guy5.png'),
-(21, 'Đạt', 'chill-guy6.png'),
-(22, 'Hưng', 'chill-guy7.png'),
-(23, 'Hiếu', 'chill-guy8.png');
+(16, 'Quang', 'chill-guy1.png'),
+(17, 'Tiến', 'chill-guy2.png'),
+(18, 'Bảo', 'chill-guy3.png'),
+(19, 'Vóc', 'chill-guy4.png');
 
 -- --------------------------------------------------------
 
@@ -414,20 +523,25 @@ CREATE TABLE `user_cred` (
   `t_expire` date DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
   `datentime` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `user_cred`
 --
 
 INSERT INTO `user_cred` (`id`, `name`, `email`, `address`, `phonenum`, `pincode`, `dob`, `profile`, `password`, `is_verified`, `token`, `t_expire`, `status`, `datentime`) VALUES
-(2, 'Trung', 'trung@gmail.com', 'ad', '123', 123324, '2022-06-12', 'chill-guy2.png', '12345', 1, NULL, NULL, 1, '2024-11-30 16:05:59'),
-(5, 'Huy', 'huy@gmail.com', 'asd', '1234', 123, '2005-12-30', 'chill-guy3.png', '12345', 1, '24ffd287a4c2eda5f2b424be2824f997', NULL, 1, '2024-11-30 02:37:19'),
-(6, 'Hiếu', 'hieu@gmail.com', 'asd', '1123', 123, '2005-12-22', 'chill-guy6.png', '12345', 1, 'ef6dc7ba39cf4bf844244d3ef927a3e7', NULL, 1, '2024-11-30 02:40:42'),
-(7, 'Hùng', 'hung@gmail.com', 'qweqweqweqwe', '12345', 123, '1995-12-28', 'chill-guy1.png', '12345', 0, '5c9f04397ff3e693f7cbfccea1044483', NULL, 1, '2024-11-30 02:42:37'),
-(8, 'Đạt', 'dat@gmail.com', 'a', '12', 1, '2005-12-01', 'chill-guy5.png', '12345', 0, '250dd45640f7d810313b27e758a267af', NULL, 1, '2024-11-30 02:55:39'),
-(9, 'trung', '123123@asdasdasd', '1123123123', '1231111111111', 123, '2222-02-12', 'chill-guy.png', '123', 0, NULL, NULL, 1, '2024-12-01 11:56:05'),
-(11, 'test', 'test@gmail.com', '123123', '1231231455555', 123123, '1111-11-11', 'chill-guy.png', '12345', 0, NULL, NULL, 1, '2024-12-01 13:05:25');
+(2, 'Quang', 'quang@gmail.com', 'ad', '1233323123', 123324, '2022-06-12', 'chill-guy2.png', '$2y$10$g4XkX2Yb4M85EsfRJX1PaOYgcqfpENLnJwVeotNqs9MYoY7LZT0O6', 1, NULL, NULL, 1, '2025-09-10 16:05:59'),
+(5, 'Tiến', 'tien@gmail.com', 'asd', '1234', 123, '2005-12-30', 'chill-guy3.png', '12345', 1, '24ffd287a4c2eda5f2b424be2824f997', NULL, 1, '2025-09-12 02:37:19'),
+(6, 'Bảo', 'bao@gmail.com', 'asd', '1123', 123, '2005-12-22', 'chill-guy6.png', '12345', 1, 'ef6dc7ba39cf4bf844244d3ef927a3e7', NULL, 1, '2025-10-12 02:40:42'),
+(7, 'Vóc', 'Vocngu@gmail.com', 'qweqweqweqwe', '12345', 123, '1995-12-28', 'chill-guy1.png', '$2y$10$Sm5uPi7PvYE1X/AvzyFHSOsxl6zqOR.Evi1EEqHNDybcGJFZKXywS', 0, '5c9f04397ff3e693f7cbfccea1044483', NULL, 1, '2025-10-12 02:42:37'),
+(8, 'Quang', 'hatienquang@gmail.com', 'a', '11232131232', 1, '2005-12-01', 'chill-guy5.png', '12345', 0, '250dd45640f7d810313b27e758a267af', NULL, 1, '2025-10-12 02:55:39'),
+(9, 'khach', '123123@asdasdasd', '1123123123', '1231111111111', 123, '2222-02-12', 'chill-guy.png', '12345', 0, NULL, NULL, 1, '2025-10-12 11:56:05'),
+(11, 'test', 'test@gmail.com', '123123', '1231231455555', 123123, '1111-11-11', 'chill-guy.png', '12345', 0, NULL, NULL, 1, '2025-10-12 13:05:25'),
+(12, 'Nguyễn Tiến', 'tiennguyen@gmail.com', 'Da Nang', '0905123123', 123123, '2002-03-19', 'IMG_78307.jpeg', '$2y$10$Ni7GZPADcuGdZMmJ.0WR1uAiE2C/OAkVGhm.k15//FM1tk8oXZieu', 0, NULL, NULL, 1, '2025-10-12 15:18:33'),
+(13, 'Lê Thị Vóc', 'ltvoc@gmail.com', 'Quận 8', '0327786217', 84, '2003-04-10', 'IMG_68658.jpeg', '$2y$10$O.c8RHDqyryx.qBPnI49b.2YabjvIAwP5SlQknqez1lMGZYRI4RN2', 0, NULL, NULL, 1, '2025-10-12 22:30:05'),
+(14, 'Dương Đức Bảo', 'bao11@gmail.com', 'Hà Nội', '0352640446', 1204034299, '2004-08-25', '', '$2y$10$OnsfuBREGbXC.oEjWjnnA.Of0CPsGb1QxFnFWaDF18JP2RYhoriSu', 0, NULL, NULL, 1, '2025-10-12 22:06:13'),
+(15, 'datphong', 'quang123123@gmail.com', 'Hà Nội', '0364106604', 1204034299, '2004-08-25', 'IMG_29236.jpeg', '$2y$10$Y0bLko9VUmXD.Sndvy4TyuZ0.RngNPhQVuVCP//rx3Tt.8X54z37W', 0, NULL, NULL, 1, '2025-10-12 09:33:09'),
+(16, 'Hà Tiến Quang', 'hehehe@gmail.com', 'Hà Nội', '0352702404', 142, '2004-08-25', 'IMG_95762.jpeg', '$2y$10$pZVhy/h7wNWvvhVvhQCojOV.Zq5G.rc77gHQSA07noxp5d8G4Wav.', 0, NULL, NULL, 1, '2025-10-12 10:39:46');
 
 -- --------------------------------------------------------
 
@@ -444,14 +558,6 @@ CREATE TABLE `user_queries` (
   `datentime` datetime NOT NULL DEFAULT current_timestamp(),
   `seen` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `user_queries`
---
-
-INSERT INTO `user_queries` (`sr_no`, `name`, `email`, `subject`, `message`, `datentime`, `seen`) VALUES
-(11, 'Hung', 'hung@gmail.com', 'Tôi muốn đặt phòng', 'Cần hỗ trợ đặt phòng Tổng Thống.', '2024-11-29 00:00:00', 1),
-(13, 'Trung', 'trung@gmail.com', 'Yêu cầu hoàn tiền', 'Cần hỗ trợ hoàn tiền do huỷ đột xuất.', '2024-12-06 10:10:48', 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -477,6 +583,14 @@ ALTER TABLE `booking_order`
   ADD PRIMARY KEY (`booking_id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `room_id` (`room_id`);
+
+--
+-- Chỉ mục cho bảng `booking_services`
+--
+ALTER TABLE `booking_services`
+  ADD PRIMARY KEY (`sr_no`),
+  ADD KEY `booking_id` (`booking_id`),
+  ADD KEY `service_id` (`service_id`);
 
 --
 -- Chỉ mục cho bảng `carousel`
@@ -541,6 +655,12 @@ ALTER TABLE `room_images`
   ADD KEY `room_id` (`room_id`);
 
 --
+-- Chỉ mục cho bảng `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `settings`
 --
 ALTER TABLE `settings`
@@ -556,7 +676,10 @@ ALTER TABLE `team_details`
 -- Chỉ mục cho bảng `user_cred`
 --
 ALTER TABLE `user_cred`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_email` (`email`),
+  ADD KEY `idx_phonenum` (`phonenum`),
+  ADD KEY `idx_token` (`token`);
 
 --
 -- Chỉ mục cho bảng `user_queries`
@@ -572,25 +695,31 @@ ALTER TABLE `user_queries`
 -- AUTO_INCREMENT cho bảng `admin_cred`
 --
 ALTER TABLE `admin_cred`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `booking_details`
 --
 ALTER TABLE `booking_details`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT cho bảng `booking_order`
 --
 ALTER TABLE `booking_order`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT cho bảng `booking_services`
+--
+ALTER TABLE `booking_services`
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT cho bảng `carousel`
 --
 ALTER TABLE `carousel`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `contact_details`
@@ -614,31 +743,37 @@ ALTER TABLE `features`
 -- AUTO_INCREMENT cho bảng `rating_review`
 --
 ALTER TABLE `rating_review`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `room_facilities`
 --
 ALTER TABLE `room_facilities`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT cho bảng `room_features`
 --
 ALTER TABLE `room_features`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT cho bảng `room_images`
 --
 ALTER TABLE `room_images`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
+--
+-- AUTO_INCREMENT cho bảng `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `settings`
@@ -656,13 +791,13 @@ ALTER TABLE `team_details`
 -- AUTO_INCREMENT cho bảng `user_cred`
 --
 ALTER TABLE `user_cred`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `user_queries`
 --
 ALTER TABLE `user_queries`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -682,6 +817,13 @@ ALTER TABLE `booking_order`
   ADD CONSTRAINT `booking_order_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
 --
+-- Các ràng buộc cho bảng `booking_services`
+--
+ALTER TABLE `booking_services`
+  ADD CONSTRAINT `booking_services_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `booking_order` (`booking_id`),
+  ADD CONSTRAINT `booking_services_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`);
+
+--
 -- Các ràng buộc cho bảng `rating_review`
 --
 ALTER TABLE `rating_review`
@@ -693,15 +835,15 @@ ALTER TABLE `rating_review`
 -- Các ràng buộc cho bảng `room_facilities`
 --
 ALTER TABLE `room_facilities`
-  ADD CONSTRAINT `facilities id` FOREIGN KEY (`facilities_id`) REFERENCES `facilities` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `room id` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `facilities id` FOREIGN KEY (`facilities_id`) REFERENCES `facilities` (`id`),
+  ADD CONSTRAINT `room id` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
 --
 -- Các ràng buộc cho bảng `room_features`
 --
 ALTER TABLE `room_features`
-  ADD CONSTRAINT `features id` FOREIGN KEY (`features_id`) REFERENCES `features` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `rm id` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `features id` FOREIGN KEY (`features_id`) REFERENCES `features` (`id`),
+  ADD CONSTRAINT `rm id` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
 --
 -- Các ràng buộc cho bảng `room_images`

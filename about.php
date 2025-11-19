@@ -21,8 +21,8 @@
     <h2 class="fw-bold h-font text-center">VỀ CHÚNG TÔI</h2>
     <div class="h-line bg-dark"></div>
     <p class="text-center mt-3">
-      Sinh viên K23 - Trường Đại học Nguyễn Tất Thành - Khoa Công nghệ Thông tin <br>
-      Nhóm 5 - 23DTH2D
+      Trang web đặt phòng dễ dàng – nhanh chóng – uy tín. Cung cấp hàng ngàn phòng khách sạn, homestay trên khắp Việt Nam. <br>
+      
     </p>
   </div>
 
@@ -31,8 +31,8 @@
       <div class="col-lg-6 col-md-5 mb-4 order-lg-1 order-md-1 order-2">
         <h3 class="mb-3">Lời cảm ơn</h3>
         <p>
-        Chúng em xin được bày tỏ lòng biết ơn đến các thầy, cô trường Đại học Nguyên Tất Thành khoa Công Nghệ Thông Tin đã giúp đỡ, hỗ trợ nhiệt tình trong suốt quá trình học. <br><br>
-        Đặc biệt gửi lời cảm ơn đến cô Nguyễn Thị Hoài Thu đã trực tiếp giúp đỡ, hỗ trợ, hướng dẫn em hoàn thành khóa luận này.
+        Cảm ơn bạn đã tin tưởng lựa chọn chúng tôi!
+Chúng tôi luôn nỗ lực mang đến cho bạn những trải nghiệm đặt phòng dễ dàng, nhanh chóng và đáng nhớ. Hãy để kỳ nghỉ của bạn bắt đầu từ đây!
         </p>
       </div>
       <div class="col-lg-5 col-md-5 mb-4 order-lg-2 order-md-2 order-1">

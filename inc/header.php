@@ -16,6 +16,9 @@
           <a class="nav-link me-2" href="facilities.php">Tiện ích</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link me-2" href="services.php">Dịch vụ</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link me-2" href="contact.php">Liên hệ</a>
         </li>
         <li class="nav-item">

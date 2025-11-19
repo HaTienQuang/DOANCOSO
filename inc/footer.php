@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<h6 class="text-center bg-dark text-white p-3 m-0">Đồ án môn học Lập Trình Web - NTTU</h6>
+<h6 class="text-center bg-dark text-white p-3 m-0">Website Đặt phòng khách sạn và Homestay</h6>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -63,143 +63,328 @@
   }
 
   function remAlert(){
-    document.getElementsByClassName('alert')[0].remove();
+    let alerts = document.getElementsByClassName('alert');
+    if(alerts.length > 0) {
+      alerts[0].remove();
+    }
   }
 
   function setActive()
   {
     let navbar = document.getElementById('nav-bar');
-    let a_tags = navbar.getElementsByTagName('a');
+    if(navbar) {
+      let a_tags = navbar.getElementsByTagName('a');
 
-    for(i=0; i<a_tags.length; i++)
-    {
-      let file = a_tags[i].href.split('/').pop();
-      let file_name = file.split('.')[0];
+      for(let i=0; i<a_tags.length; i++)
+      {
+        let file = a_tags[i].href.split('/').pop();
+        let file_name = file.split('.')[0];
 
-      if(document.location.href.indexOf(file_name) >= 0){
-        a_tags[i].classList.add('active');
+        if(document.location.href.indexOf(file_name) >= 0){
+          a_tags[i].classList.add('active');
+        }
       }
-
     }
   }
 
+  // Registration form handler with improved error handling
   let register_form = document.getElementById('register-form');
 
-  register_form.addEventListener('submit', (e)=>{
-    e.preventDefault();
+  if(register_form) {
+    register_form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      
+      console.log('Registration form submitted');
+      
+      // Show loading state
+      let submitBtn = register_form.querySelector('button[type="submit"]');
+      let originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang xử lý...';
+      submitBtn.disabled = true;
 
-    let data = new FormData();
+      // Validate form data before sending
+      let name = register_form.elements['name'].value.trim();
+      let email = register_form.elements['email'].value.trim();
+      let phonenum = register_form.elements['phonenum'].value.trim();
+      let address = register_form.elements['address'].value.trim();
+      let pincode = register_form.elements['pincode'].value.trim();
+      let dob = register_form.elements['dob'].value;
+      let pass = register_form.elements['pass'].value;
+      let cpass = register_form.elements['cpass'].value;
 
-    data.append('name',register_form.elements['name'].value);
-    data.append('email',register_form.elements['email'].value);
-    data.append('phonenum',register_form.elements['phonenum'].value);
-    data.append('address',register_form.elements['address'].value);
-    data.append('pincode',register_form.elements['pincode'].value);
-    data.append('dob',register_form.elements['dob'].value);
-    data.append('pass',register_form.elements['pass'].value);
-    data.append('cpass',register_form.elements['cpass'].value);
-    data.append('profile',register_form.elements['profile'].files[0]);
-    data.append('register','');
+      // Client-side validation
+      if(!name || !email || !phonenum || !address || !pincode || !dob || !pass || !cpass) {
+        alert('error', 'Vui lòng điền đầy đủ thông tin!');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        return;
+      }
 
-    var myModal = document.getElementById('registerModal');
-    var modal = bootstrap.Modal.getInstance(myModal);
-    modal.hide();
+      if(pass !== cpass) {
+        alert('error', 'Mật khẩu không trùng khớp!');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        return;
+      }
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST","ajax/login_register.php",true);
+      if(pass.length < 6) {
+        alert('error', 'Mật khẩu phải có ít nhất 6 ký tự!');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        return;
+      }
 
-    xhr.onload = function(){
-      if(this.responseText == 'pass_mismatch'){
-        alert('error',"Mật khẩu không trùng khớp!");
+      // Create FormData
+      let data = new FormData();
+      data.append('name', name);
+      data.append('email', email);
+      data.append('phonenum', phonenum);
+      data.append('address', address);
+      data.append('pincode', pincode);
+      data.append('dob', dob);
+      data.append('pass', pass);
+      data.append('cpass', cpass);
+      
+      // Only append profile if file is selected
+      if(register_form.elements['profile'].files[0]) {
+        data.append('profile', register_form.elements['profile'].files[0]);
+        console.log('Profile image selected:', register_form.elements['profile'].files[0].name);
+      } else {
+        console.log('No profile image selected');
       }
-      else if(this.responseText == 'email_already'){
-        alert('error',"Email đã được đăng ký!");
-      }
-      else if(this.responseText == 'phone_already'){
-        alert('error',"Số điện thoại đã được đăng ký!");
-      }
-      else if(this.responseText == 'inv_img'){
-        alert('error',"Chỉ hỗ trợ định dạng JPG, WEBP & PNG!");
-      }
-      else if(this.responseText == 'upd_failed'){
-        alert('error',"Tải lên hình ảnh thất bại!");
-      }
-      else if(this.responseText == 'mail_failed'){
-        alert('error',"Hệ thống đang bảo trì, không thể gửi email xác nhận!");
-      }
-      else if(this.responseText == 'ins_failed'){
-        alert('error',"Đăng ký thất bại! Hệ thống đang bảo trì!");
-      }
-      else{
-        alert('success',"Đăng ký thành công!");
-        register_form.reset();
-      }
-    }
+      
+      data.append('register', '');
 
-    xhr.send(data);
-  });
+      // Debug: Log form data
+      console.log('Sending registration data:');
+      for (let [key, value] of data.entries()) {
+        if(key === 'profile' && value instanceof File) {
+          console.log(key + ':', value.name, value.size + ' bytes');
+        } else {
+          console.log(key + ':', value);
+        }
+      }
 
+      // Hide modal before making request
+      var myModal = document.getElementById('registerModal');
+      var modal = bootstrap.Modal.getInstance(myModal);
+      if(modal) {
+        modal.hide();
+      }
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST","ajax/login_register.php",true);
+
+      xhr.onload = function(){
+        // Reset button state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        
+        console.log('Server response:', this.responseText);
+        
+        if(this.responseText == 'pass_mismatch'){
+          alert('error',"Mật khẩu không trùng khớp!");
+        }
+        else if(this.responseText == 'email_already'){
+          alert('error',"Email đã được đăng ký!");
+        }
+        else if(this.responseText == 'phone_already'){
+          alert('error',"Số điện thoại đã được đăng ký!");
+        }
+        else if(this.responseText == 'inv_img'){
+          alert('error',"Chỉ hỗ trợ định dạng JPG, WEBP & PNG!");
+        }
+        else if(this.responseText == 'inv_size'){
+          alert('error',"Hình ảnh phải nhỏ hơn 2MB!");
+        }
+        else if(this.responseText == 'upd_failed'){
+          alert('error',"Tải lên hình ảnh thất bại!");
+        }
+        else if(this.responseText == 'mail_failed'){
+          alert('error',"Hệ thống đang bảo trì, không thể gửi email xác nhận!");
+        }
+        else if(this.responseText == 'registration_failed' || this.responseText == 'ins_failed'){
+          alert('error',"Đăng ký thất bại! Vui lòng thử lại!");
+        }
+        else if(this.responseText == 'registration_success'){
+          alert('success',"Đăng ký thành công! Vui lòng đăng nhập!");
+          register_form.reset();
+          
+          // Show login modal after successful registration
+          setTimeout(function() {
+            var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+            loginModal.show();
+          }, 1000);
+        }
+        else {
+          alert('error',"Có lỗi xảy ra: " + this.responseText);
+        }
+      }
+
+      xhr.onerror = function() {
+        // Reset button state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        
+        console.error('Network error during registration');
+        alert('error',"Lỗi kết nối! Vui lòng kiểm tra internet và thử lại!");
+      }
+
+      xhr.ontimeout = function() {
+        // Reset button state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        
+        console.error('Request timeout during registration');
+        alert('error',"Timeout! Vui lòng thử lại!");
+      }
+
+      // Set timeout
+      xhr.timeout = 30000; // 30 seconds
+
+      xhr.send(data);
+    });
+  }
+
+  // Login form handler with improved error handling
   let login_form = document.getElementById('login-form');
 
-  login_form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    let data = new FormData(this);
-    data.append('login', '');
+  if(login_form) {
+    login_form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      console.log('Login form submitted');
+      
+      // Show loading state
+      let submitBtn = login_form.querySelector('button[type="submit"]');
+      let originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang xử lý...';
+      submitBtn.disabled = true;
+      
+      // Validate form data
+      let email_mob = login_form.elements['email_mob'].value.trim();
+      let pass = login_form.elements['pass'].value;
 
-    fetch('ajax/login_register.php', {
-        method: 'POST',
-        body: data
-    }).then(response => response.text()).then(result => {
-        if(result === 'login_success') {
-            alert('Đăng nhập thành công!');
-            window.location.href = 'index.php';
-        } else {
-            alert('Đăng nhập thất bại: ' + result);
+      if(!email_mob || !pass) {
+        alert('error', 'Vui lòng điền đầy đủ thông tin!');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        return;
+      }
+      
+      let data = new FormData();
+      data.append('email_mob', email_mob);
+      data.append('pass', pass);
+      data.append('login', '');
+
+      console.log('Sending login data:', email_mob);
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST","ajax/login_register.php",true);
+
+      xhr.onload = function() {
+        // Reset button state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        
+        console.log('Login response:', this.responseText);
+        
+        if(this.responseText === 'login_success') {
+          alert('success', 'Đăng nhập thành công!');
+          
+          // Hide login modal
+          var myModal = document.getElementById('loginModal');
+          var modal = bootstrap.Modal.getInstance(myModal);
+          if(modal) {
+            modal.hide();
+          }
+          
+          // Reload page after short delay
+          setTimeout(function() {
+            window.location.reload();
+          }, 1000);
+        } 
+        else if(this.responseText === 'invalid_email_mob') {
+          alert('error', 'Email hoặc số điện thoại không tồn tại!');
+        } 
+        else if(this.responseText === 'invalid_password') {
+          alert('error', 'Mật khẩu không đúng!');
+        } 
+        else {
+          alert('error', 'Đăng nhập thất bại: ' + this.responseText);
         }
+      }
+
+      xhr.onerror = function() {
+        // Reset button state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        
+        console.error('Network error during login');
+        alert('error', 'Lỗi kết nối! Vui lòng thử lại!');
+      }
+
+      xhr.ontimeout = function() {
+        // Reset button state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        
+        console.error('Request timeout during login');
+        alert('error', 'Timeout! Vui lòng thử lại!');
+      }
+
+      // Set timeout
+      xhr.timeout = 15000; // 15 seconds
+
+      xhr.send(data);
     });
-  });
+  }
 
-  // let forgot_form = document.getElementById('forgot-form');
+  // Forgot password form handler (commented out for now)
+  /*
+  let forgot_form = document.getElementById('forgot-form');
 
-  // forgot_form.addEventListener('submit', (e)=>{
-  //   e.preventDefault();
+  if(forgot_form) {
+    forgot_form.addEventListener('submit', (e)=>{
+      e.preventDefault();
 
-  //   let data = new FormData();
+      let data = new FormData();
+      data.append('email',forgot_form.elements['email'].value);
+      data.append('forgot_pass','');
 
-  //   data.append('email',forgot_form.elements['email'].value);
-  //   data.append('forgot_pass','');
+      var myModal = document.getElementById('forgotModal');
+      var modal = bootstrap.Modal.getInstance(myModal);
+      modal.hide();
 
-  //   var myModal = document.getElementById('forgotModal');
-  //   var modal = bootstrap.Modal.getInstance(myModal);
-  //   modal.hide();
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST","ajax/login_register.php",true);
 
-  //   let xhr = new XMLHttpRequest();
-  //   xhr.open("POST","ajax/login_register.php",true);
+      xhr.onload = function(){
+        if(this.responseText == 'inv_email'){
+          alert('error',"Email không hợp lệ!");
+        }
+        else if(this.responseText == 'not_verified'){
+          alert('error',"Email chưa được xác thực! Vui lòng liên hệ Admin");
+        }
+        else if(this.responseText == 'inactive'){
+          alert('error',"Tài khoản bị khóa! Vui lòng liên hệ Admin.");
+        }
+        else if(this.responseText == 'mail_failed'){
+          alert('error',"Không thể gửi email. Hệ thống lỗi!");
+        }
+        else if(this.responseText == 'upd_failed'){
+          alert('error',"Khôi phục tài khoản thất bại. Hệ thống lỗi!");
+        }
+        else{
+          alert('success',"Link khôi phục đã được gửi tới email!");
+          forgot_form.reset();
+        }
+      }
 
-  //   xhr.onload = function(){
-  //     if(this.responseText == 'inv_email'){
-  //       alert('error',"Invalid Email !");
-  //     }
-  //     else if(this.responseText == 'not_verified'){
-  //       alert('error',"Email is not verified! Please contact Admin");
-  //     }
-  //     else if(this.responseText == 'inactive'){
-  //       alert('error',"Account Suspended! Please contact Admin.");
-  //     }
-  //     else if(this.responseText == 'mail_failed'){
-  //       alert('error',"Cannot send email. Server Down!");
-  //     }
-  //     else if(this.responseText == 'upd_failed'){
-  //       alert('error',"Account recovery failed. Server Down!");
-  //     }
-  //     else{
-  //       alert('success',"Reset link sent to email!");
-  //       forgot_form.reset();
-  //     }
-  //   }
-
-  //   xhr.send(data);
-  // });
+      xhr.send(data);
+    });
+  }
+  */
 
   function checkLoginToBook(status,room_id){
     if(status){
@@ -210,6 +395,13 @@
     }
   }
 
+  // Initialize functions when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    setActive();
+    console.log('Page loaded, JavaScript initialized');
+  });
+
+  // Also call setActive for compatibility
   setActive();
 
 </script>

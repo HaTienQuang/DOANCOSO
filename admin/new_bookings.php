@@ -36,6 +36,7 @@
                     <th scope="col">User Details</th>
                     <th scope="col">Room Details</th>
                     <th scope="col">Bookings Details</th>
+                    <th scope="col">Dịch vụ đã đặt</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -81,11 +82,36 @@
     </div>
   </div>
 
+  <!-- Add Service Modal -->
+  <div class="modal fade" id="add-service-booking-modal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="addServiceBookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <form id="add_service_booking_form">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Thêm dịch vụ</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row" id="services-list">
+                <!-- Services will be loaded here by JS -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="booking_id">
+            <button type="reset" class="btn text-secondary shadow-none" data-bs-dismiss="modal">HỦY</button>
+            <button type="submit" class="btn custom-bg text-white shadow-none">LƯU</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
 
 
   <?php require('inc/scripts.php'); ?>
 
-  <script src="scripts/new_bookings.js"></script>
+  <script src="scripts/new_bookings.js?v=<?php echo time(); ?>"></script>
 
 </body>
 </html>

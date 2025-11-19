@@ -43,15 +43,9 @@
           </td>
           <td>
             <b>Room:</b> $data[room_name]
-            <br>
-            <b>Check-in:</b> $checkin
-            <br>
-            <b>Check-out:</b> $checkout
-            <br>
-            <b>Date:</b> $date
           </td>
           <td>
-            <b>$data[trans_amt] VND</b> 
+            <b>$data[total_pay] VND</b> 
           </td>
           <td>
             <button type='button' onclick='refund_booking($data[booking_id])' class='btn btn-success btn-sm fw-bold shadow-none'>

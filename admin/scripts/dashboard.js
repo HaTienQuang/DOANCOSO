@@ -14,6 +14,9 @@ function booking_analytics(period=1)
     
     document.getElementById('cancelled_bookings').textContent = data.cancelled_bookings;
     document.getElementById('cancelled_amt').textContent = data.cancelled_amt+' VND';
+    
+    document.getElementById('total_services_booked').textContent = data.total_services_booked;
+    document.getElementById('total_service_revenue').textContent = data.total_service_revenue+' VND';
   }
 
   xhr.send('booking_analytics&period='+period);
@@ -38,6 +41,6 @@ function user_analytics(period=1)
 
 
 window.onload = function(){
-  booking_analytics();
-  user_analytics();
+  booking_analytics(4);
+  user_analytics(4);
 }

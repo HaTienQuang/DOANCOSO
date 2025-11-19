@@ -3,15 +3,20 @@
   require('../admin/inc/db_config.php');
   require('../admin/inc/essentials.php');
 
-  
+  session_start();
+
+  // Check if user is logged in
+  if(!(isset($_SESSION['login']) && $_SESSION['login']==true)){
+    echo 'not_logged_in';
+    exit;
+  }
 
   if(isset($_POST['info_form']))
   {
     $frm_data = filteration($_POST);
-    session_start();
 
     $u_exist = select("SELECT * FROM `user_cred` WHERE `phonenum`=? AND `id`!=? LIMIT 1",
-      [$data['phonenum'],$_SESSION['uId']],"ss");
+      [$frm_data['phonenum'],$_SESSION['uId']],"si");
 
     if(mysqli_num_rows($u_exist)!=0){
       echo 'phone_already';
@@ -24,21 +29,17 @@
     $values = [$frm_data['name'],$frm_data['address'],$frm_data['phonenum'],
       $frm_data['pincode'],$frm_data['dob'],$_SESSION['uId']];
 
-    if(update($query,$values,'ssssss')){
+    if(update($query,$values,'sssssi')){
       $_SESSION['uName'] = $frm_data['name'];
       echo 1;
     }
     else{
       echo 0;
     }
-
   }
-
 
   if(isset($_POST['profile_form']))
   {
-    session_start();
-
     $img = uploadUserImage($_FILES['profile']);
     
     if($img == 'inv_img'){
@@ -50,52 +51,45 @@
       exit;
     }
 
-
-    //fetching old image and deleting it
-
-    $u_exist = select("SELECT `profile` FROM `user_cred` WHERE `id`=? LIMIT 1",[$_SESSION['uId']],"s");
+    // Fetching old image and deleting it (except default.jpg)
+    $u_exist = select("SELECT `profile` FROM `user_cred` WHERE `id`=? LIMIT 1",[$_SESSION['uId']],"i");
     $u_fetch = mysqli_fetch_assoc($u_exist);
 
-    deleteImage($u_fetch['profile'],USERS_FOLDER);
-
+    if($u_fetch['profile'] != 'default.jpg') {
+      deleteImage($u_fetch['profile'],USERS_FOLDER);
+    }
 
     $query = "UPDATE `user_cred` SET `profile`=? WHERE `id`=? LIMIT 1";
-    
     $values = [$img,$_SESSION['uId']];
 
-    if(update($query,$values,'ss')){
+    if(update($query,$values,'si')){
       $_SESSION['uPic'] = $img;
       echo 1;
     }
     else{
       echo 0;
     }
-
   }
 
   if(isset($_POST['pass_form']))
   {
     $frm_data = filteration($_POST);
-    session_start();
 
     if($frm_data['new_pass']!=$frm_data['confirm_pass']){
       echo 'mismatch';
       exit;
     }
 
-    $enc_pass = password_hash($frm_data['new_pass'],PASSWORD_BCRYPT);
+    $enc_pass = password_hash($frm_data['new_pass'],PASSWORD_DEFAULT);
 
     $query = "UPDATE `user_cred` SET `password`=? WHERE `id`=? LIMIT 1";
     $values = [$enc_pass,$_SESSION['uId']];
 
-    if(update($query,$values,'ss')){
+    if(update($query,$values,'si')){
       echo 1;
     }
     else{
       echo 0;
     }
-
   }
-
-
 ?>

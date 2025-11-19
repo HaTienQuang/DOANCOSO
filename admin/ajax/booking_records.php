@@ -71,9 +71,11 @@
             <b>Price:</b> $data[price] VND
           </td>
           <td>
-            <b>Amount:</b> $data[trans_amt] VND
+            <b>Check-in:</b> $checkin
             <br>
-            <b>Date:</b> $date
+            <b>Check-out:</b> $checkout
+            <br>
+            <b>Amount:</b> $data[total_pay] VND
           </td>
           <td>
             <span class='badge $status_bg'>$data[booking_status]</span>

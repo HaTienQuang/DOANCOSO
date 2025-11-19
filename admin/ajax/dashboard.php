@@ -21,19 +21,32 @@
     }
 
     $result = mysqli_fetch_assoc(mysqli_query($con,"SELECT 
+      
+      -- Total Bookings
+      COUNT(bo.booking_id) AS `total_bookings`,
+      COALESCE(SUM(bd.total_pay), 0) AS `total_amt`,
 
-      COUNT(CASE WHEN booking_status!='pending'AND booking_status!='payment failed' THEN 1 END) AS `total_bookings`,
-      SUM(CASE WHEN booking_status!='pending' AND booking_status!='payment failed' THEN `trans_amt` END) AS `total_amt`,
+      -- Active Bookings
+      COUNT(CASE WHEN bo.booking_status='booked' AND bo.arrival=1 THEN 1 END) AS `active_bookings`,
+      COALESCE(SUM(CASE WHEN bo.booking_status='booked' AND bo.arrival=1 THEN bd.total_pay END), 0) AS `active_amt`,
 
-      COUNT(CASE WHEN booking_status='booked' AND arrival=1 THEN 1 END) AS `active_bookings`,
-      SUM(CASE WHEN booking_status='booked' AND arrival=1 THEN `trans_amt` END) AS `active_amt`,
+      -- Cancelled Bookings
+      COUNT(CASE WHEN bo.booking_status='cancelled' THEN 1 END) AS `cancelled_bookings`,
+      COALESCE(SUM(CASE WHEN bo.booking_status='cancelled' THEN bd.total_pay END), 0) AS `cancelled_amt`
 
-      COUNT(CASE WHEN booking_status='cancelled' AND refund=1 THEN 1 END) AS `cancelled_bookings`,
-      SUM(CASE WHEN booking_status='cancelled' AND refund=1 THEN `trans_amt` END) AS `cancelled_amt`
+      FROM `booking_order` bo
+      INNER JOIN `booking_details` bd ON bo.booking_id = bd.booking_id
+      $condition"));
 
-      FROM `booking_order` $condition"));
+    // Query for service analytics
+    $service_result = mysqli_fetch_assoc(mysqli_query($con,"SELECT 
+      COALESCE(SUM(bs.quantity), 0) AS `total_services_booked`,
+      COALESCE(SUM(bs.price * bs.quantity), 0) AS `total_service_revenue`
+      FROM `booking_services` bs
+      INNER JOIN `booking_order` bo ON bs.booking_id = bo.booking_id
+      $condition"));
 
-    $output = json_encode($result);
+    $output = json_encode(array_merge($result, $service_result));
 
     echo $output;
   }

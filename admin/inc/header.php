@@ -47,6 +47,9 @@
             <a class="nav-link text-white" href="rooms.php">Danh sách phòng</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link text-white" href="services.php">Dịch vụ</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link text-white" href="features_facilities.php">Không Gian và Tiện Nghi</a>
           </li>
           <li class="nav-item">

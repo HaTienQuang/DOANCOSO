@@ -1,9 +1,9 @@
 <?php
 
-  $hname = 'localhost';
+  $hname = '127.0.0.1:3306';
   $uname = 'root';
   $pass = '';
-  $db = 'vietchill';
+  $db = 'doancoso';
 
   $con = mysqli_connect($hname, $uname, $pass, $db);
 

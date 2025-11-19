@@ -21,7 +21,7 @@
     $is_shutdown = mysqli_fetch_assoc(mysqli_query($con,"SELECT `shutdown` FROM `settings`"));
 
     $current_bookings = mysqli_fetch_assoc(mysqli_query($con,"SELECT 
-      COUNT(CASE WHEN booking_status='booked' AND arrival=0 THEN 1 END) AS `new_bookings`,
+      COUNT(CASE WHEN booking_status='pending' THEN 1 END) AS `new_bookings`,
       COUNT(CASE WHEN booking_status='cancelled' AND refund=0 THEN 1 END) AS `refund_bookings`
       FROM `booking_order`"));
 
@@ -96,7 +96,7 @@
             <option value="1">Past 30 Days</option>
             <option value="2">Past 90 Days</option>
             <option value="3">Past 1 Year</option>
-            <option value="4">All time</option>
+            <option value="4" selected>All time</option>
           </select>
         </div>
 
@@ -124,6 +124,24 @@
           </div>
         </div>
 
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h5>Service Analytics</h5>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-3 mb-4">
+            <div class="card text-center text-info p-3">
+              <h6>Services Booked</h6>
+              <h1 class="mt-2 mb-0" id="total_services_booked">0</h1>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card text-center text-success p-3">
+              <h6>Service Revenue</h6>
+              <h1 class="mt-2 mb-0" id="total_service_revenue">0 VND</h1>
+            </div>
+          </div>
+        </div>
 
         <div class="d-flex align-items-center justify-content-between mb-3">
           <h5>User, Queries, Reviews Analytics</h5>
@@ -131,7 +149,7 @@
             <option value="1">Past 30 Days</option>
             <option value="2">Past 90 Days</option>
             <option value="3">Past 1 Year</option>
-            <option value="4">All time</option>
+            <option value="4" selected>All time</option>
           </select>
         </div>
       
@@ -190,6 +208,6 @@
   
 
   <?php require('inc/scripts.php'); ?>
-  <script src="scripts/dashboard.js"></script>
+  <script src="scripts/dashboard.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
